@@ -35,7 +35,7 @@ public class Server
 			if(Type == NetCodes.USER_CONNECT)
 			{
 				ServerClientInfo NewClient = new ServerClientInfo();
-				NewClient.setSock(S);
+				NewClient.setOutputStream(output);
 				NewClient.setTuple(TempClient);
 				
 				ConnectedClients.add(NewClient);
@@ -48,7 +48,10 @@ public class Server
 					SendClients.SetClient(ConnectedClients.get(i).getTuple());
 					SendClients.SetMessage(null);
 					
-					output.writeObject(SendClients);
+					for(int j = 0; j < ConnectedClients.size(); j++)
+					{
+						ConnectedClients.get(j).GetOutputStream().writeObject(SendClients);
+					}
 				}
 			}
 			
@@ -60,7 +63,13 @@ public class Server
 			
 			if(Type == NetCodes.RECIEVE_MESSAGE)
 			{
-				output.writeObject(Test);
+				for(int k = 0; k < ConnectedClients.size(); k++)
+				{
+					if(TempClient.GetClientID().equals(ConnectedClients.get(k).getTuple().GetClientID()))
+					{
+						ConnectedClients.get(k).GetOutputStream().writeObject(Test);
+					}
+				}
 			}
 			
 		}

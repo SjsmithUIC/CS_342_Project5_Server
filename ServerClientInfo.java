@@ -1,18 +1,19 @@
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class ServerClientInfo
 {
 	private ClientIDTuple T;
-	Socket ClientSock;
+	ObjectOutputStream ClientOS;
 	
-	public void setSock(Socket S)
+	public void setOutputStream(ObjectOutputStream S)
 	{
-		ClientSock = S;
+		ClientOS = S;
 	}
 	
-	public Socket GetSock()
+	public ObjectOutputStream GetOutputStream()
 	{
-		return ClientSock;
+		return ClientOS;
 	}
 	
 	public void setTuple(ClientIDTuple in)
